@@ -1,0 +1,13 @@
+*.sqlite
+/node_modules
+.env
+/public/hot
+/public/storage
+/public/js
+/public/css
+/public/fonts
+/public/images
+/public/mix-manifest.json
+.npmrc
+npm-debug.log
+/storage/*.key

@@ -1,0 +1,17 @@
+<?php
+        $param = array(
+            'key'=>'xmKNBRZoyuoYXXgLzEr5K7UKtMs40x',
+            'id'=>'hero',
+            // 'year'=>'',
+            'page'=>0,
+            'type'=>'json'
+        );
+        $ch = curl_init('http://imdbapi.net/api');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, count($param));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER , true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST  , 2);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        echo $result;
