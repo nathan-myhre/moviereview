@@ -8,9 +8,6 @@ import ReviewApiDocs from './components/ReviewApiDocs'
 
 Vue.use(VueRouter)
 
-
-// const Bar = { template: '<div>This is Bar {{ $route.params.id }}</div>' }
-
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,

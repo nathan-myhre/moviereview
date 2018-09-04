@@ -6,7 +6,7 @@
                     <div class="panel-heading"><h2>Welcome to the Movie Review API</h2></div>
 
                     <div class="panel-body">
-                        Use the navigation above to see sample parameters for the Movie Review API.Use
+                        Use the navigation above to see sample parameters for the Movie Review API.
                         <br/>                        
                         <br/>
 
@@ -14,8 +14,11 @@
                         <ul>
                             <li>Laravel Passport to Authenticate API requests.</li>
                             <li>Move API routes to api.php.</li>
-                            <li>Allow users to change their vote through by voting again.</li>
-                            <li>Create a frontend to consume the API's.</li>
+                            <li>Allow users to change their vote by voting again.</li>
+                            <li>Create a frontend to consume Movie Review API's.</li>
+                            <li>Change delete review to be softdelete instead.</li>
+                            <li>Clean up content in Vue Components.</li>
+
                         </ul>
                     </div>
                 </div>

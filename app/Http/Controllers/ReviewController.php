@@ -9,20 +9,11 @@ use App\ReviewVote;
 
 class ReviewController extends Controller
 {
-    
-  
-    /*
-    API Key info, use $key = md5(uniqid(rand(), true)); to generate random api key for user
-    api_key table should have id, user_id, api_key, active, timestamps
-    check requests coming in have api_key from table and match to user making the request
-    otherwise fail the request
-    maybe make endpoint to register new user or separately to request api_key
-    */
-  
+   
   
     /**
-    * Finished
-    *
+    * Get all reviews from DB
+    * Parameters: none
     */
     public function getReviews()
     {
@@ -36,8 +27,8 @@ class ReviewController extends Controller
   
   
     /**
-    * Finished
-    *
+    * Get specific review matching review id
+    * Parameters: review id
     */
     public function getReview(Request $request)
     {
@@ -46,14 +37,14 @@ class ReviewController extends Controller
         {
             return response()->json(['Response' => 'Success', 'status' => 'Review fetched',  'data' => $review], 200);
         }
-    return response()->json(['Response' => 'False', 'data' => 'Review id does not exist'], 400);
+        return response()->json(['Response' => 'False', 'data' => 'Review id does not exist'], 400);
     }
   
   
   
     /**
-    * Update user_id to be dynamic
-    *
+    * Create review for movie based on imdb id
+    * Parameters: imdb_id, user_id, content
     */
     public function createReview(Request $request)
     {
@@ -67,48 +58,53 @@ class ReviewController extends Controller
             $review->save();
             return response()->json(['Response' => 'Success', 'status' => 'Review created', 'data' => $review], 201);
         }
-    return response()->json(['Response' => 'False', 'data' => 'Invalid or missing parameters'], 400);
+        return response()->json(['Response' => 'False', 'data' => 'Invalid or missing parameters'], 400);
     }
   
   
     /**
-    * Update user_id to be dynamic
-    *
+    * Edit review for movie based on review id
+    * Parameters: review id, user_id, content
     */
     public function editReview(Request $request)
     {
         if ($request->has(['user_id', 'content']) && $request->user_id !== NULL && $request->content !== NULL)
         {
-            //validate user is same user as original review
             $review = Review::findOrFail($request->id);
-            $review->user_id = $request->user_id;
-            $review->content = $request->content;
-            $review->save();
-            return response()->json(['Response' => 'Success', 'status' => 'Review updated',  'data' => $review], 200);
+            if ($request->user_id === $review->user_id)
+            {
+                $review->user_id = $request->user_id;
+                $review->content = $request->content;
+                $review->save();
+                return response()->json(['Response' => 'Success', 'status' => 'Review updated',  'data' => $review], 200);
+            }
+            return response()->json(['Response' => 'False', 'data' => 'Not authorized to edit that review'], 403);
+
         }
-    return response()->json(['Response' => 'False', 'data' => 'Invalid or missing parameters'], 400);
+        return response()->json(['Response' => 'False', 'data' => 'Invalid or missing parameters'], 400);
     }
   
   
   
     /**
-    * Finished
-    *
+    * Delete review based on review id
+    * Parameters: review id
     */
     public function deleteReview(Request $request)
     {
         $review = Review::where('id', $request->id)->get();
         if (!$review->isEmpty())
         {
+            Review::where('id', $request->id)->delete();
             return response()->json(['Response' => 'Success', 'status' => 'Review deleted',  'data' => $review], 200);
         }
-    return response()->json(['Response' => 'False', 'data' => 'Review id does not exist'], 400);
+        return response()->json(['Response' => 'False', 'data' => 'Review id does not exist'], 404);
     }
   
   
     /**
-    * Add logic to adjust vote value if user has already voted
-    *
+    * Add vote to review either
+    * parameters: review id, user_id, value
     */
     public function addVote(Request $request)
     {
@@ -134,10 +130,9 @@ class ReviewController extends Controller
         //do vote value adjustment logic here
         //if new vote is 1 or -1 and sum of old votes != 0, vote is now 0
         //if sum of old votes is 0 then vote == new vote
-        //         if ($checkVotes->value)
-
-        return response()->json(['Response' => 'False', 'data' => 'You have already voted on this review'], 400);
+           
+            return response()->json(['Response' => 'False', 'data' => 'You have already voted on this review'], 400);
         }
-    return response()->json(['Response' => 'False', 'data' => 'Invalid or missing parameters'], 400);
+        return response()->json(['Response' => 'False', 'data' => 'Invalid or missing parameters'], 400);
     }
 }
