@@ -1,3 +1,14 @@
+<h2 align="center">Welcome to my Movie Review API.</h2>
+
+<p>API docs are located <a href="http://demosite-myhren04647032.codeanyapp.com" target="_blank">here</a>
+
+This Movie Review API and the doc site above were created and are hosted by <a href="https://codeanywhere.com/" target="_blank">CodeAnywhere</a>
+
+I created simple movie lookup and review API's that allows users to search for movies using the <a href="http://www.omdbapi.com/" target="_blank">OMDb</a> lookup of <a href="https://www.imdb.com/" target="_blank">IMDb</a> movies. Users can search for movies by keyword or imdb id.
+
+Users can also create, edit, lookup, and delete reviews about movies. Finally, users can vote on reviews for if they agree or disagree with the review.
+</p>
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
