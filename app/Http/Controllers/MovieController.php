@@ -9,8 +9,8 @@ class MovieController extends Controller
 {
     
     /**
-    * Finished
-    *
+    * Get all movies matching search value
+    * Parameters: s
     */
     public function findMovies(Request $request)
     {
@@ -35,8 +35,8 @@ class MovieController extends Controller
     }
   
     /**
-    * Finished
-    *
+    * Get movie details matching imdb id
+    * Parameters: i
     */
     public function getMovieDetails(Request $request)
     {
@@ -53,7 +53,7 @@ class MovieController extends Controller
         {
             return response()->json(['Response' => 'Success', 'status' => 'Movie found',  'data' => json_decode($data), 'code' => $httpcode], 200);
         }
-    return response()->json(['Response' => 'False', 'data' => 'IMDb id does not exist'], 400);
+    return response()->json(['Response' => 'False', 'data' => 'IMDb id does not exist'], 404);
     }
     
 }
