@@ -1,42 +1,40 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import Home from './components/Home'
+import MovieApiDocs from './components/MovieApiDocs'
+import ReviewApiDocs from './components/ReviewApiDocs'
 
-require('./bootstrap')
 
-window.Vue = require('vue')
+Vue.use(VueRouter)
 
-window.events = new Vue()
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+// const Bar = { template: '<div>This is Bar {{ $route.params.id }}</div>' }
 
-Vue.component(
-    'example-component', 
-    require('./components/ExampleComponent.vue')
-);
-
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue')
-);
-
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue')
-);
-
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue')
-);
-
-const app = new Vue({
-    el: '#app'
+const router = new VueRouter({
+  mode: 'history',
+  base: __dirname,
+  routes: [
+    { path: '/', name: 'home', component: Home },
+    { path: '/docs/reviews', name: 'reviewapi', component: ReviewApiDocs },
+    { path: '/docs/movies', name: 'movieapi', component: MovieApiDocs },
+    
+  ]
 })
+
+new Vue({
+  router,
+  template: `
+    <div id="app">
+      <nav>
+        <router-link :to="{ name: 'home' }">Home</router-link> | 
+        <router-link :to="{ name: 'reviewapi' }">Review API Docs</router-link> | 
+        <router-link :to="{ name: 'movieapi' }">Movie API Docs</router-link>
+      </nav>
+      <br/><br/>
+      <router-view class="view"></router-view>
+    </div>
+  `
+}).$mount('#app')
+
+
